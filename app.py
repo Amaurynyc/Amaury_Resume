@@ -81,26 +81,38 @@ if user_input:
 
         # Check if matches were found
         if matches:
-            extracted_text = " ".join(matches)  # Join all extracted texts
-            # Create and display the blue container with the extracted text
-            st.markdown(
-                f"""
-                <style>
-                .blue-container {{
-                    background-color: #f0f8ff;
-                    border-radius: 10px;
-                    padding: 10px;
-                    margin: 10px 0;
-                }}
-                </style>
-                <div class="blue-container">
-                    {extracted_text}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+    extracted_text = " ".join(matches)  # Join all extracted texts
+    # Split the text into paragraphs at \n\n
+    paragraphs = extracted_text.split("\n\n")
+    formatted_html = []
+    for paragraph in paragraphs:
+        # Further split each paragraph into bullet points at \n
+        bullet_points = paragraph.split("\n")
+        # Create a list in HTML for each paragraph if there are multiple bullet points
+        if len(bullet_points) > 1:
+            bullets_html = "<ul>" + "".join(f"<li>{bp}</li>" for bp in bullet_points if bp) + "</ul>"
+            formatted_html.append(bullets_html)
         else:
-            st.error("No text was found in the API response.")
+            # If there's no bullet points, just add the paragraph
+            formatted_html.append(f"<p>{paragraph}</p>")
+    formatted_text = "".join(formatted_html)
 
-    except Exception as e:
-        st.error(f"An error occurred while fetching the response: {str(e)}")
+    # Create and display the blue container with the formatted text
+    st.markdown(
+        f"""
+        <style>
+        .blue-container {{
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+        }}
+        </style>
+        <div class="blue-container">
+            {formatted_text}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+else:
+    st.error("No text was found in the API response.")
