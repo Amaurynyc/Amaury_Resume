@@ -59,16 +59,16 @@ if user_input:
             }]
         )
 
-            # Convert response to a string for regex processing
-            response_str = str(response)
+# Convert response to a string for regex processing
+response_str = str(response)
 
-            # Define a regex pattern to more accurately extract the text
-            pattern = r'TextBlock\\(text="((?:\[^"\\\\\]|\\\\.)\*)'
+# Define a regex pattern to more accurately extract the text
+pattern = r'TextBlock\\(text="((?:\[^"\\\\\]|\\\\.)\*)'
 
-            # Use regex to find all matches of the pattern
-            matches = re.findall(pattern, response_str)
+# Use regex to find all matches of the pattern
+matches = re.findall(pattern, response_str)
 
-            # Check if matches were found
+# Check if matches were found
             if matches:
                 extracted_text = " ".join(matches) # Join all extracted texts
 
