@@ -1,5 +1,6 @@
 import streamlit as st
 import anthropic
+import re
 
 # Streamlit UI setup
 st.sidebar.write("""
@@ -58,16 +59,40 @@ if user_input:
             }]
         )
 
-        # Extract the message content from the response
-        response_str = response['content'][0]['text'] if 'content' in response and response['content'] else "No valid response received."
+        # Convert response to a string for regex processing
+        response_str = str(response)
 
-        # Replace escaped newlines with appropriate HTML tags
-        response_str = response_str.replace("\\n\\n", "</p><p>").replace("\\n", "<br>")
+        # Define a regex pattern to more accurately extract the text
+        pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
 
-        # Ensure the content is wrapped in paragraph tags
-        formatted_text = f"<div style='background-color: #f0f8ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;'><p>{response_str}</p></div>"
+        # Use regex to find all matches of the pattern
+        matches = re.findall(pattern, response_str)
 
-        st.markdown(formatted_text, unsafe_allow_html=True)
+        # Check if matches were found
+        if matches:
+            extracted_text = " ".join(matches)  # Join all extracted texts
+            # Replace newline characters with HTML tags for formatting
+            extracted_text = extracted_text.replace("\\n\\n", "</p><p>").replace("\\n", "<br>")
+            # Wrap the content in paragraph tags if not already formatted
+            formatted_html = f"<div class='blue-container'><p>{extracted_text}</p></div>"
+
+            # Create and display the blue container with the formatted text
+            st.markdown(
+                f"""
+                <style>
+                .blue-container {{
+                    background-color: #f0f8ff;
+                    border-radius: 10px;
+                    padding: 20px;
+                    margin-bottom: 20px;
+                }}
+                </style>
+                {formatted_html}
+                """,
+                unsafe_allow_html=True
+            )
+        else:
+            st.error("No text was found in the API response.")
 
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
