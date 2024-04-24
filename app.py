@@ -1,6 +1,6 @@
 import streamlit as st
 import anthropic
-import ast  # Import the abstract syntax tree module
+import re
 
 # Streamlit UI setup
 st.sidebar.write("Version 1.0")
@@ -10,7 +10,7 @@ st.sidebar.write("Developer: Amaury")
 client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
 
 # Chat interface
-user_input = st.text_input("How can I help with Wardley Mapping?. In your API response, I just want the text response, i want to be able to extract it easily.")
+user_input = st.text_input("How can I help with Wardley Mapping?")
 
 if user_input:
     try:
@@ -26,14 +26,22 @@ if user_input:
             }]
         )
 
-    if 'content' in response and isinstance(response['content'], list):
-        # Extracting the text from each TextBlock in the content list
-        formatted_output = "\n".join(text_block['text'] for text_block in response['content'] if 'text' in text_block)
-        # Writing the formatted output to a text file
-        with open('output.txt', 'w') as file:
-            file.write(formatted_output)
-        print("Output has been successfully saved to 'output.txt'.")
-    else:
-        print("Response content is not in the expected list format:", response)
-except Exception as e:
-    print("An error occurred:", str(e))
+        # Convert response to a string for regex processing
+        response_str = str(response)
+        st.write("API Response:", response_str)  # Log the full response string for debugging
+
+        # Define a regex pattern to more accurately extract the text
+        pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
+
+        # Use regex to find all matches of the pattern
+        matches = re.findall(pattern, response_str)
+
+        # Check if matches were found
+        if matches:
+            extracted_text = " ".join(matches)  # Join all extracted texts
+            st.write("Extracted Text:", extracted_text)
+        else:
+            st.error("No text was found in the API response.")
+
+    except Exception as e:
+        st.error(f"An error occurred while fetching the response: {str(e)}")
