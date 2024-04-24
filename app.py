@@ -44,8 +44,7 @@ st.markdown(questions_html, unsafe_allow_html=True)
 # Access the system message environment variable
 system_message = os.getenv('SYSTEM_MESSAGE', 'Default message if SYSTEM_MESSAGE is not set')
 
-# Debugging line to check the environment variable
-print("Debug - System Message:", system_message)
+
 
 
 # Chat interface
@@ -73,6 +72,10 @@ if user_input:
 
         # Use regex to find all matches of the pattern
         matches = re.findall(pattern, response_str)
+
+
+        # Debugging line to check the environment variable
+        st.error("Debug - System Message:", system_message)
 
         # Check if matches were found
         if matches:
