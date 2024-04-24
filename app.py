@@ -5,12 +5,14 @@ import anthropic
 st.sidebar.write("Version 1.0")
 st.sidebar.write("Developer: Amaury")
 
-# Initialize the client
+# Initialize the client with the API key from Streamlit's secrets
 client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
 
 # Chat interface
-if user_input := st.text_input("How can I help with Wardley Mapping?"):
+user_input = st.text_input("How can I help with Wardley Mapping?")
+if user_input:
     try:
+        # Sending the user message to the model
         response = client.messages.create(
             model="claude-2.1",
             max_tokens=100,
@@ -24,15 +26,21 @@ if user_input := st.text_input("How can I help with Wardley Mapping?"):
 
         # Log the response to inspect the structure, temporarily for debugging
         st.write("API Response:", response)
-        
-        # Extracting message content from the response
-        if 'content' in response and isinstance(response['content'], list):
-            # Iterate through each content block in the list
-            for text_block in response['content']:
-                if 'text' in text_block and text_block['type'] == 'text':
-                    st.write(text_block['text'])
+
+        # Extracting and displaying text from messages
+        if 'messages' in response:
+            for message in response['messages']:
+                # Check if 'content' is present and is a list
+                if 'content' in message and isinstance(message['content'], list):
+                    # Extract text from each TextBlock if present
+                    texts = [block['text'] for block in message['content'] if 'text' in block]
+                    # Display each piece of text
+                    for text in texts:
+                        st.write(text)
+                else:
+                    st.write("No text content available in this message.")
         else:
-            st.error("The response from the API did not contain the expected 'content' data.")
+            st.error("The response from the API did not contain the expected 'messages' data.")
 
     except Exception as e:
         st.error(f"An error occurred while fetching the response: {str(e)}")
