@@ -58,12 +58,8 @@ if user_input:
             }]
         )
 
-        # Extract the message content
-        if 'content' in response and isinstance(response['content'], list) and response['content']:
-            text_blocks = [block['text'] for block in response['content'] if 'text' in block]
-            response_str = " ".join(text_blocks)
-        else:
-            response_str = "No valid response received."
+        # Extract the message content from the response
+        response_str = response['content'][0]['text'] if 'content' in response and response['content'] else "No valid response received."
 
         # Replace escaped newlines with appropriate HTML tags
         response_str = response_str.replace("\\n\\n", "</p><p>").replace("\\n", "<br>")
