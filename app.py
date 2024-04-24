@@ -24,7 +24,7 @@ st.sidebar.markdown(linkedin_html, unsafe_allow_html=True)
 st.title("Meet Amaury Desrosiers !")
 st.subheader("Exploring My Fit for Solution Architecture Manager at Anthropic")
 
-system_message = os.getenv('SYSTEM_MESSAGE', 'Default fallback message')
+system_message = os.getenv('SECRET_MESSAGE', 'Default fallback message')
 st.write(system_message)
 
 # Initialize the client with the API key from Streamlit's secrets
