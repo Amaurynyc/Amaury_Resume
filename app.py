@@ -74,20 +74,11 @@ if user_input:
         # Check if matches were found
         if matches:
             extracted_text = " ".join(matches)  # Join all extracted texts
-            # Split the text into paragraphs at \n\n
-            paragraphs = extracted_text.split("\n\n")
-            formatted_html = []
-            for paragraph in paragraphs:
-                # Further split each paragraph into bullet points at \n
-                bullet_points = paragraph.split("\n")
-                # Create a list in HTML for each paragraph if there are multiple bullet points
-                if len(bullet_points) > 1:
-                    bullets_html = "<ul>" + "".join(f"<li>{bp}</li>" for bp in bullet_points if bp) + "</ul>"
-                    formatted_html.append(bullets_html)
-                else:
-                    # If there's no bullet points, just add the paragraph
-                    formatted_html.append(f"<p>{paragraph}</p>")
-            formatted_text = "".join(formatted_html)
+            # Replace \n\n with HTML paragraph break, and \n with a new line in HTML
+            formatted_text = extracted_text.replace("\n\n", "</p><p>").replace("\n", "<br>")
+            
+            # Wrap in paragraph tags
+            formatted_text = f"<p>{formatted_text}</p>"
 
             # Create and display the blue container with the formatted text
             st.markdown(
