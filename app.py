@@ -39,7 +39,7 @@ if user_input:
         # Check if matches were found
         if matches:
             extracted_text = " ".join(matches)  # Join all extracted texts
-            st.write("Extracted Text:", extracted_text)
+            st.write(extracted_text)
         else:
             st.error("No text was found in the API response.")
 
