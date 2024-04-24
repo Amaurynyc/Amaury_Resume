@@ -74,11 +74,17 @@ if user_input:
         # Check if matches were found
         if matches:
             extracted_text = " ".join(matches)  # Join all extracted texts
-            # Replace \n\n with HTML paragraph break, and \n with a new line in HTML
-            formatted_text = extracted_text.replace("\n\n", "</p><p>").replace("\n", "<br>")
-            
-            # Wrap in paragraph tags
-            formatted_text = f"<p>{formatted_text}</p>"
+            # Process the text to split into structured HTML
+            paragraphs = re.split(r'\n\n+', extracted_text)  # Split on double newlines for paragraphs
+            formatted_html = ''
+            for paragraph in paragraphs:
+                bullet_points = re.split(r'\n+', paragraph)  # Split on single newline for bullet points
+                if len(bullet_points) > 1:
+                    # Format as list items if there are bullet points
+                    formatted_html += '<ul>' + ''.join(f'<li>{point}</li>' for point in bullet_points if point.strip()) + '</ul>'
+                else:
+                    # Otherwise, it's a single paragraph
+                    formatted_html += f'<p>{paragraph}</p>'
 
             # Create and display the blue container with the formatted text
             st.markdown(
@@ -92,7 +98,7 @@ if user_input:
                 }}
                 </style>
                 <div class="blue-container">
-                    {formatted_text}
+                    {formatted_html}
                 </div>
                 """,
                 unsafe_allow_html=True
