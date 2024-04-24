@@ -80,7 +80,8 @@ if user_input:
         #st.error("Debug - System Message:", system_message)
 
         # Check if matches were found
-        if matches:
+        # Assuming `extracted_text` contains the string with \n and \n\n to denote new sections and bullet points
+if matches:
     extracted_text = " ".join(matches)  # Join all extracted texts
     # Split the text into paragraphs at \n\n
     paragraphs = extracted_text.split("\n\n")
