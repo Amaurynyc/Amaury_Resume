@@ -90,7 +90,7 @@ if user_input:
                 f"""
                 <style>
                 .blue-container {{
-                    background-color: #7199eb;
+                    background-color: #8eb2fa;
                     border-radius: 10px;
                     padding: 20px;
                     margin-bottom: 20px;
