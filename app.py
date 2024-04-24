@@ -58,7 +58,10 @@ if user_input:
             }]
         )
 
-        # Extract the message content assuming it is correctly formatted in the response
+        # Log the full response to check its structure
+        st.write("Full API Response:", response)
+
+        # Extract the message content if possible
         if 'choices' in response and len(response['choices']) > 0 and 'message' in response['choices'][0]:
             response_str = response['choices'][0]['message']['content']
         else:
