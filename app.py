@@ -10,7 +10,6 @@ st.sidebar.write("""
 
 st.sidebar.write("Trained with claude-3-haiku-20240307")
 
-
 st.sidebar.markdown("""
 [Solution Architect Manager Opening](https://jobs.lever.co/Anthropic/71f3bd8b-2f82-429c-997a-18830b9ca1f1)
 """)
@@ -95,6 +94,11 @@ if user_input:
                 """,
                 unsafe_allow_html=True
             )
+
+            # Display the full API response
+            st.write("Full API Response:")
+            st.write(response)
+
         else:
             st.error("No text was found in the API response.")
 
