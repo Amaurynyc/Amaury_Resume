@@ -40,7 +40,7 @@ questions_html = """
 st.markdown(questions_html, unsafe_allow_html=True)
 
 # Access the system message environment variable
-system_message = os.getenv('SYSTEM_INPUT', ' ')
+system_message = os.getenv('SYSTEM_MESSAGE', 'Default message if SYSTEM_MESSAGE is not set')
 
 
 # Chat interface
