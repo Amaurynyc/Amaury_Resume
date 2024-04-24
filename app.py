@@ -41,12 +41,6 @@ questions_html = """
 
 st.markdown(questions_html, unsafe_allow_html=True)
 
-# Access the system message environment variable
-system_message = os.getenv('SYSTEM_MESSAGE', 'Default message if SYSTEM_MESSAGE is not set')
-
-
-
-
 # Chat interface
 user_input = st.text_input("What do you want to know abut Amaury?")
 
@@ -57,7 +51,7 @@ if user_input:
             model="claude-3-haiku-20240307",
             max_tokens=1000,
             temperature=0.1,
-            system=system_message,
+            system="Amaury is amazing",
             messages=[{
                 "content": user_input,
                 "role": "user"
