@@ -62,6 +62,10 @@ if user_input:
             }]
         )
 
+        # Print the full API response
+        st.write("Full API Response:")
+        st.write(response)
+
         # Convert response to a string for regex processing
         response_str = str(response)
 
@@ -94,11 +98,6 @@ if user_input:
                 """,
                 unsafe_allow_html=True
             )
-
-            # Display the full API response
-            st.write("Full API Response:")
-            st.write(response)
-
         else:
             st.error("No text was found in the API response.")
 
