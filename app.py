@@ -13,7 +13,6 @@ linkedin_icon_url = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedI
 
 # HTML to embed the icon with a link
 linkedin_html = f'<a href="{linkedin_profile_url}" target="_blank"><img src="{linkedin_icon_url}" alt="LinkedIn" style="width:30px;height:30px;border:0;"></a>'
-
 # Display the LinkedIn icon with link in the sidebar
 st.sidebar.markdown(linkedin_html, unsafe_allow_html=True)
 
@@ -37,9 +36,6 @@ questions_html = """
 
 st.markdown(questions_html, unsafe_allow_html=True)
 
-
-
-
 # Chat interface
 user_input = st.text_input("How can I help with Wardley Mapping?")
 
@@ -59,18 +55,23 @@ if user_input:
 
         # Convert response to a string for regex processing
         response_str = str(response)
+        #st.write("API Response:", response_str)  # Log the full response string for debugging
+
+        # Define a regex pattern to more accurately extract the text
+        pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
+
         # Use regex to find all matches of the pattern
-        pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)"'
         matches = re.findall(pattern, response_str)
 
         # Check if matches were found
         if matches:
             extracted_text = " ".join(matches)  # Join all extracted texts
-            # Replace newlines and dashes with HTML list format
-            extracted_text = extracted_text.replace("\n\n-", "</li><li>")
-            if "<li>" in extracted_text:
-                extracted_text = f"<ul><li>{extracted_text[5:]}</li></ul>"
-
+            # Replace \n with <br> for HTML line breaks and \n\n- with <li>
+            formatted_text = extracted_text.replace("\n\n-", "</li><li>").replace("\n", "<br>")
+            # Ensure it's wrapped with <ul> tags if it contains <li>
+            if "<li>" in formatted_text:
+                formatted_text = f"<ul><li>{formatted_text[5:]}</li></ul>"
+            
             # Create and display the blue container with the formatted text
             st.markdown(
                 f"""
@@ -83,7 +84,7 @@ if user_input:
                 }}
                 </style>
                 <div class="blue-container">
-                    {extracted_text}
+                    {formatted_text}
                 </div>
                 """,
                 unsafe_allow_html=True
