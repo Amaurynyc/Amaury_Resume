@@ -26,7 +26,7 @@ linkedin_html = f'<a href="{linkedin_profile_url}" target="_blank"><img src="{li
 st.sidebar.markdown(linkedin_html, unsafe_allow_html=True)
 
 # Title and Subtitle
-st.title("Meet Amaury Desrosiers !")
+st.title("Meet Amaury Desrosiers!")
 st.subheader("Exploring My Fit for Solution Architecture Manager at Anthropic")
 
 # Initialize the client with the API key from Streamlit's secrets
@@ -49,18 +49,18 @@ st.divider()
 user_input = st.text_input("What do you want to know about Amaury?")
 
 if user_input:
-    try:
-        # Sending the user message to the model
-        response = client.messages.create(
-            model="claude-3-haiku-20240307",
-            max_tokens=1000,
-            temperature=0.1,
-            system=st.secrets["secret_message"],
-            messages=[{
-                "content": user_input,
-                "role": "user"
-            }]
-        )
+  try:
+    # Sending the user message to the model
+    response = client.messages.create(
+      model="claude-3-haiku-20240307",
+      max_tokens=1000,
+      temperature=0.1,
+      system=st.secrets["secret_message"],
+      messages=[{
+        "content": user_input,
+        "role": "user"
+      }]
+    )
 
     # Convert response to a string for regex processing
     response_str = str(response)
