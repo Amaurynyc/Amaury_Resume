@@ -1,7 +1,5 @@
 import streamlit as st
 import anthropic
-import re
-import os
 
 # Streamlit UI setup
 st.sidebar.write("""
@@ -9,9 +7,7 @@ st.sidebar.write("""
 ## **amaury@outlook.com**
 """)
 
-st.sidebar.write("""
-Trained with claude-3-haiku-20240307
-""")
+st.sidebar.write("Trained with claude-3-haiku-20240307")
 
 # URL to your LinkedIn profile
 linkedin_profile_url = "https://www.linkedin.com/in/amaurydesrosiers"
@@ -35,11 +31,11 @@ client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
 # Example Questions in Grey
 questions_html = """
 <div style='color: grey;'>
-<p style='margin-bottom: 5px;'>What unique skills does Amaury Desrosiers bring to the role of Solution Architecture Manager?</p>
-<p style='margin-bottom: 5px;'>How has Amaury's background prepared him for managing solution architecture at Anthropic?</p>
-<p style='margin-bottom: 5px;'>Can you share examples of Amaury's past achievements in technology leadership?</p>
-<p style='margin-bottom: 5px;'>What are Amaury's key strengths in team management and project execution?</p>
-<p style='margin-bottom: 5px;'>How does Amaury view the future of AI in solution architecture?</p>
+<p>What unique skills does Amaury Desrosiers bring to the role of Solution Architecture Manager?</p>
+<p>How has Amaury's background prepared him for managing solution architecture at Anthropic?</p>
+<p>Can you share examples of Amaury's past achievements in technology leadership?</p>
+<p>What are Amaury's key strengths in team management and project execution?</p>
+<p>How does Amaury view the future of AI in solution architecture?</p>
 </div>
 """
 st.markdown(questions_html, unsafe_allow_html=True)
@@ -49,58 +45,31 @@ st.divider()
 user_input = st.text_input("What do you want to know about Amaury?")
 
 if user_input:
-  try:
-    # Sending the user message to the model
-    response = client.messages.create(
-      model="claude-3-haiku-20240307",
-      max_tokens=1000,
-      temperature=0.1,
-      system=st.secrets["secret_message"],
-      messages=[{
-        "content": user_input,
-        "role": "user"
-      }]
-    )
+    try:
+        # Sending the user message to the model
+        response = client.messages.create(
+            model="claude-3-haiku-20240307",
+            max_tokens=1000,
+            temperature=0.1,
+            system=st.secrets["secret_message"],
+            messages=[{
+                "content": user_input,
+                "role": "user"
+            }]
+        )
 
-    # Convert response to a string for regex processing
-    response_str = str(response)
+        # Simulating a typical response format from an API
+        # In practice, you will replace the following line with actual API response extraction:
+        # response_str = response['choices'][0]['message']['content']
+        response_str = "Assume this is your API response string."
 
-    # Define a regex pattern to more accurately extract the text
-    pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
+        # Handle escaped newlines
+        response_str = response_str.replace("\\n\\n", "</p><p>").replace("\\n", "<br>")
 
-    # Use regex to find all matches of the pattern
-    matches = re.findall(pattern, response_str)
+        # Wrap the content in paragraph tags if not already formatted
+        formatted_text = f"<div style='background-color: #f0f8ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;'><p>{response_str}</p></div>"
 
-    # Check if matches were found
-    if matches:
-      extracted_text = " ".join(matches) # Join all extracted texts
-      # Process the text to split into structured HTML
-      paragraphs = re.split(r'\n\n', extracted_text) # Split on double newlines for paragraphs
-      formatted_html = ''
-      for paragraph in paragraphs:
-        if paragraph.strip():
-          # Replace single newlines with <br> tags
-          paragraph = re.sub(r'\n', '<br>', paragraph)
-          formatted_html += f'<p>{paragraph}</p>'
+        st.markdown(formatted_text, unsafe_allow_html=True)
 
-      # Create and display the blue container with the formatted text
-      st.markdown(
-        f"""
-        <style>
-        .blue-container {{
-          background-color: #f0f8ff;
-          border-radius: 10px;
-          padding: 10px;
-          margin: 10px 0;
-        }}
-        </style>
-        <div class="blue-container">
-          {formatted_html}
-        </div>
-        """,
-        unsafe_allow_html=True
-      )
-    else:
-      st.error("No text was found in the API response.")
-  except Exception as e:
-    st.error(f"An error occurred while fetching the response: {str(e)}")
+    except Exception as e:
+        st.error(f"An error occurred: {str(e)}")
