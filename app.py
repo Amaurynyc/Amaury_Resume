@@ -5,8 +5,13 @@ import os
 
 
 # Streamlit UI setup
-st.sidebar.write("Version 1.0")
+st.sidebar.write("""
+# **Amaury Desrosiers**
+""")
 st.sidebar.write("Developer: Amaury")
+
+
+
 
 # URL to your LinkedIn profile
 linkedin_profile_url = "https://www.linkedin.com/in/amaurydesrosiers"
