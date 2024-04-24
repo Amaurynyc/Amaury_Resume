@@ -72,7 +72,7 @@ Operationalize the POC engagements with our data science team to scale the busin
 ACTIONS
 Launched the development of collateral material to showcase the value of our A.I. platform to C-Level audience.
 Established POC benchmarks with the Data Science teams to ensure clarity in success criteria and execution.
-Initiated enablement program (RFP engine, demo env., scripts, templates, …) to enable scale.
+Initiated enablement program (RFP engine, demo env., scripts, templates,) to enable scale.
 Defined qualification and sales engagement model to structure the engagement model.
 Empower the sales team with clear ROI calculators to demonstrate the value of the platform.
 Led and executed comprehensive scoping, tailored presentations, and POCs for major global banks.
@@ -113,7 +113,7 @@ CENTRALESUPELEC	      MSc Computer Science and Electrical Engineering	  Paris		2
 
         # Convert response to a string for regex processing
         response_str = str(response)
-        st.write("API Response:", response_str)  # Log the full response string for debugging
+        #st.write("API Response:", response_str)  # Log the full response string for debugging
 
         # Define a regex pattern to more accurately extract the text
         pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
