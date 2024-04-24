@@ -43,7 +43,7 @@ questions_html = """
 st.markdown(questions_html, unsafe_allow_html=True)
 st.divider()
 # Chat interface
-user_input = st.text_input("What do you want to know abut Amaury?")
+user_input = st.text_input("What do you want to know about Amaury?")
 
 if user_input:
     try:
