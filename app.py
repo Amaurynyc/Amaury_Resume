@@ -39,8 +39,12 @@ questions_html = """
 
 st.markdown(questions_html, unsafe_allow_html=True)
 
+# Access the system message environment variable
+system_message = os.getenv('SYSTEM_INPUT', ' ')
+
+
 # Chat interface
-user_input = st.text_input("How can I help with Wardley Mapping?")
+user_input = st.text_input("What do you want to know abut Amaury?")
 
 if user_input:
     try:
