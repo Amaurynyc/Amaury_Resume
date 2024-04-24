@@ -10,6 +10,7 @@ client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
 
 # Chat interface
 user_input = st.text_input("How can I help with Wardley Mapping?")
+
 if user_input:
     try:
         # Sending the user message to the model
@@ -24,8 +25,8 @@ if user_input:
             }]
         )
 
-        # Extract and display only the text portion
-        extracted_text = response['content'][0]['text']
+        # Extract and display the response text
+        extracted_text = response.text
         st.write("Extracted Text:", extracted_text)
 
     except Exception as e:
