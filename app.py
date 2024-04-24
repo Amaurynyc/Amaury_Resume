@@ -3,6 +3,9 @@ import anthropic
 import re
 import os
 
+pattern = r'"text":\s*"([^"]*)"'
+
+
 
 # Streamlit UI setup
 st.sidebar.write("""
