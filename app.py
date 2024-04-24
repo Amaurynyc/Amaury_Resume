@@ -62,18 +62,14 @@ if user_input:
             }]
         )
 
-        # Convert response to a string for regex processing
-        response_str = str(response)
+    # Convert response to a string for regex processing
+    response_str = str(response)
 
-        # Define a regex pattern to more accurately extract the text
-        pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
+    # Define a regex pattern to more accurately extract the text
+    pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
 
-        # Use regex to find all matches of the pattern
-        matches = re.findall(pattern, response_str)
-
-        # Check if matches were found
-
-
+    # Use regex to find all matches of the pattern
+    matches = re.findall(pattern, response_str)
 
     # Check if matches were found
     if matches:
@@ -108,5 +104,3 @@ if user_input:
       st.error("No text was found in the API response.")
   except Exception as e:
     st.error(f"An error occurred while fetching the response: {str(e)}")
-
-
