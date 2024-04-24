@@ -44,6 +44,9 @@ st.markdown(questions_html, unsafe_allow_html=True)
 # Access the system message environment variable
 system_message = os.getenv('SYSTEM_MESSAGE', 'Default message if SYSTEM_MESSAGE is not set')
 
+# Debugging line to check the environment variable
+print("Debug - System Message:", system_message)
+
 
 # Chat interface
 user_input = st.text_input("What do you want to know abut Amaury?")
