@@ -1,5 +1,6 @@
 import streamlit as st
 import anthropic
+import ast  # Import the abstract syntax tree module
 
 # Streamlit UI setup
 st.sidebar.write("Version 1.0")
@@ -25,14 +26,17 @@ if user_input:
             }]
         )
 
-        # Assuming response is a JSON-like object and checking for 'content' key
-        if 'content' in response:
-            # Iterate over each item in the content list
-            texts = [block['text'] for block in response['content'] if 'text' in block]
+        # Convert the response to a string and then evaluate it to a Python object
+        response_str = str(response)
+        response_list = ast.literal_eval(response_str)
+
+        # Assuming response_list is now a properly formatted list of dictionaries
+        if response_list and isinstance(response_list, list):
+            texts = [block['text'] for block in response_list if 'text' in block]
             extracted_text = " ".join(texts)
             st.write("Extracted Text:", extracted_text)
         else:
             st.error("No 'content' field found in the response, or response not in expected format.")
 
     except Exception as e:
-        st.error(f"An error occurred while fetching the response: {str(e)}")
+        st.error(f"An error occurred while processing the response: {str(e)}")
