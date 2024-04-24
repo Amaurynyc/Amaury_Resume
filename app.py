@@ -58,12 +58,10 @@ if user_input:
             }]
         )
 
-        # Log the full response to check its structure
-        st.write("Full API Response:", response)
-
-        # Extract the message content if possible
-        if 'choices' in response and len(response['choices']) > 0 and 'message' in response['choices'][0]:
-            response_str = response['choices'][0]['message']['content']
+        # Extract the message content
+        if 'content' in response and isinstance(response['content'], list) and response['content']:
+            text_blocks = [block['text'] for block in response['content'] if 'text' in block]
+            response_str = " ".join(text_blocks)
         else:
             response_str = "No valid response received."
 
