@@ -4,7 +4,18 @@ import re
 
 # Streamlit UI setup
 st.sidebar.write("Version 1.0")
-st.sidebar.write("Developer: Amaury")
+st.sidebar.write("Developer: Amaury Desrosiers")
+# URL to your LinkedIn profile
+linkedin_profile_url = "https://www.linkedin.com/in/amaurydesrosiers"
+
+# URL to a LinkedIn icon image
+linkedin_icon_url = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+
+# HTML to embed the icon with a link
+linkedin_html = f'<a href="{linkedin_profile_url}" target="_blank"><img src="{linkedin_icon_url}" alt="LinkedIn" style="width:30px;height:30px;border:0;"></a>'
+
+# Display the LinkedIn icon with link in the sidebar
+st.sidebar.markdown(linkedin_html, unsafe_allow_html=True)
 
 # Initialize the client with the API key from Streamlit's secrets
 client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
