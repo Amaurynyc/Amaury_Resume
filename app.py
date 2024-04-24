@@ -1,5 +1,6 @@
 import streamlit as st
 import anthropic
+import re  # Import regular expressions library
 
 # Streamlit UI setup
 st.sidebar.write("Version 1.0")
@@ -25,9 +26,21 @@ if user_input:
             }]
         )
 
-        # Extract and display the response text
-        extracted_text = response.content
-        st.write("Extracted Text:", extracted_text)
+        # Log the response for debugging
+        st.write("API Response:", response)
+
+        # Define a regex pattern to extract the text
+        pattern = r'TextBlock\(text="([^"]+)"'
+
+        # Use regex to find all matches of the pattern
+        matches = re.findall(pattern, str(response))  # Convert response to string if not already
+
+        # Check if matches were found
+        if matches:
+            extracted_text = " ".join(matches)  # Join all extracted texts
+            st.write("Extracted Text:", extracted_text)
+        else:
+            st.error("No text was found in the API response.")
 
     except Exception as e:
         st.error(f"An error occurred while fetching the response: {str(e)}")
