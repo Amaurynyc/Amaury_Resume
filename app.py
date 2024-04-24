@@ -26,7 +26,7 @@ if user_input:
         )
 
         # Extract and display the response text
-        extracted_text = response.text
+        extracted_text = response.content
         st.write("Extracted Text:", extracted_text)
 
     except Exception as e:
