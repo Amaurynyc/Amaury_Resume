@@ -9,6 +9,22 @@ st.sidebar.write("Developer: Amaury")
 # Initialize the client with the API key from Streamlit's secrets
 client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
 
+# Define a function to create a blue container
+def blue_container():
+    st.markdown(
+        """
+        <style>
+        .blue-container {
+            background-color: #f0f8ff;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        </style>
+        <div class="blue-container">
+        """,
+        unsafe_allow_html=True
+    )
+
 # Chat interface
 user_input = st.text_input("How can I help with Wardley Mapping?")
 
@@ -39,7 +55,10 @@ if user_input:
         # Check if matches were found
         if matches:
             extracted_text = " ".join(matches)  # Join all extracted texts
-            st.write("Extracted Text:", extracted_text)
+            # Create a blue container and display extracted text
+            blue_container()
+            st.markdown(extracted_text, unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)  # Close the blue container div
         else:
             st.error("No text was found in the API response.")
 
