@@ -19,7 +19,7 @@ if user_input:
             model="claude-2.1",
             max_tokens=100,
             temperature=0.1,
-            system="Amaury_Background = "Here is Amaury's resume for context : Dynamic Solution Consulting leader with 15+ years of experience in the technology industry.
+            system="Amaury_Background = "Here is Amaury  resume for context : Dynamic Solution Consulting leader with 15+ years of experience in the technology industry.
 Proven track record of success in starting, leading Solution Consulting teams, and delivering results.
 Expertise in multiple industries : A.I., Machine Learning, Online Fraud Prevention, Pricing, Banking.
 
@@ -93,12 +93,12 @@ Worked closely with the Sales team to design the Go-To-Market strategy for credi
 
 
 Senior Presales Consultant (promoted from Sr Project Mgr and Consultant)	New York City Sep 2006 - Sep 2015
-MISYS - SOPHIS Now Finastra, one of the world's largest banking software companies
+MISYS - SOPHIS Now Finastra, one of the world s largest banking software companies
  	 	          
 Ran Presales workshops and demos to large prospects contributing to the acquisition of new clients.
 Steered the implementation of projects for large banks, coordinating and guiding teams of 10+ consultants and dev.
 Fostered and maintained strong relationships with key clients, leveraging feedback to shape product roadmaps.
-Delivered specialized consulting to maximize our platform's potential tailored to their specific needs.
+Delivered specialized consulting to maximize our platform s potential tailored to their specific needs.
 
 
 EDUCATION
