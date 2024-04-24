@@ -58,15 +58,16 @@ if user_input:
             }]
         )
 
-        # Simulating a typical response format from an API
-        # In practice, you will replace the following line with actual API response extraction:
-        # response_str = response['choices'][0]['message']['content']
-        response_str = "Assume this is your API response string."
+        # Extract the message content assuming it is correctly formatted in the response
+        if 'choices' in response and len(response['choices']) > 0 and 'message' in response['choices'][0]:
+            response_str = response['choices'][0]['message']['content']
+        else:
+            response_str = "No valid response received."
 
-        # Handle escaped newlines
+        # Replace escaped newlines with appropriate HTML tags
         response_str = response_str.replace("\\n\\n", "</p><p>").replace("\\n", "<br>")
 
-        # Wrap the content in paragraph tags if not already formatted
+        # Ensure the content is wrapped in paragraph tags
         formatted_text = f"<div style='background-color: #f0f8ff; border-radius: 10px; padding: 20px; margin-bottom: 20px;'><p>{response_str}</p></div>"
 
         st.markdown(formatted_text, unsafe_allow_html=True)
