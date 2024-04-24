@@ -54,7 +54,7 @@ if user_input:
         response = client.messages.create(
             model="claude-3-haiku-20240307",
             max_tokens=1000,
-            temperature=0.1,
+            temperature=0.2,
             system=st.secrets["secret_message"],
             messages=[{
                 "content": user_input,
