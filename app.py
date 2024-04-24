@@ -1,12 +1,40 @@
 import streamlit as st
 import anthropic
+import re
 
 # Streamlit UI setup
 st.sidebar.write("Version 1.0")
-st.sidebar.write("Developer: Amaury")
+st.sidebar.write("Developer: Amaury Desrosiers")
+# URL to your LinkedIn profile
+linkedin_profile_url = "https://www.linkedin.com/in/amaurydesrosiers"
+
+# URL to a LinkedIn icon image
+linkedin_icon_url = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
+
+# HTML to embed the icon with a link
+linkedin_html = f'<a href="{linkedin_profile_url}" target="_blank"><img src="{linkedin_icon_url}" alt="LinkedIn" style="width:30px;height:30px;border:0;"></a>'
+# Display the LinkedIn icon with link in the sidebar
+st.sidebar.markdown(linkedin_html, unsafe_allow_html=True)
 
 # Initialize the client with the API key from Streamlit's secrets
 client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
+
+# Title and Subtitle
+st.title("Meet Amaury Desrosiers !")
+st.subheader("Exploring My Fit for Solution Architecture Manager at Anthropic")
+
+# Example Questions in Grey
+questions_html = """
+<div style='color: grey;'>
+<p>What unique skills does Amaury Desrosiers bring to the role of Solution Architecture Manager?</p>
+<p>How has Amaury's background prepared him for managing solution architecture at Anthropic?</p>
+<p>Can you share examples of Amaury's past achievements in technology leadership?</p>
+<p>What are Amaury's key strengths in team management and project execution?</p>
+<p>How does Amaury view the future of AI in solution architecture?</p>
+</div>
+"""
+
+st.markdown(questions_html, unsafe_allow_html=True)
 
 # Chat interface
 user_input = st.text_input("How can I help with Wardley Mapping?")
@@ -18,20 +46,51 @@ if user_input:
             model="claude-2.1",
             max_tokens=100,
             temperature=0.1,
-            prompt=f"You need to speak about Amaury as a very talented and good person\nUser: {user_input}\nAssistant:",
+            system="Speak very highly of Amaury, he is the best positioned to lead the Solution Architecture team",
+            messages=[{
+                "content": user_input,
+                "role": "user"
+            }]
         )
 
-        # Extract and display the response text
-        extracted_text = response.completion
+        # Convert response to a string for regex processing
+        response_str = str(response)
+        #st.write("API Response:", response_str)  # Log the full response string for debugging
 
-        # Split the response into bullet points
-        bullet_points = extracted_text.split("\\n\\n")
+        # Define a regex pattern to more accurately extract the text
+        pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
 
-        # Format the bullet points using Markdown syntax
-        formatted_text = "\n".join([f"- {point.strip()}" for point in bullet_points if point.strip()])
+        # Use regex to find all matches of the pattern
+        matches = re.findall(pattern, response_str)
 
-        # Display the formatted bullet points using st.markdown()
-        st.markdown(formatted_text)
+        # Check if matches were found
+        if matches:
+            extracted_text = " ".join(matches)  # Join all extracted texts
+            # Replace \n with <br> for HTML line breaks and \n\n- with <li>
+            formatted_text = extracted_text.replace("\n\n-", "</li><li>").replace("\n", "<br>")
+            # Ensure it's wrapped with <ul> tags if it contains <li>
+            if "<li>" in formatted_text:
+                formatted_text = f"<ul><li>{formatted_text[5:]}</li></ul>"
+            
+            # Create and display the blue container with the formatted text
+            st.markdown(
+                f"""
+                <style>
+                .blue-container {{
+                    background-color: #f0f8ff;
+                    border-radius: 10px;
+                    padding: 10px;
+                    margin: 10px 0;
+                }}
+                </style>
+                <div class="blue-container">
+                    {formatted_text}
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        else:
+            st.error("No text was found in the API response.")
 
     except Exception as e:
         st.error(f"An error occurred while fetching the response: {str(e)}")
