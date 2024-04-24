@@ -24,27 +24,9 @@ if user_input:
             }]
         )
 
-        # Log the response to inspect the structure, temporarily for debugging
-        st.write("API Response:", response)
-
-        extracted_text = response['messages'][0]['content'][0]['text']
+        # Extract and display only the text portion
+        extracted_text = response['content'][0]['text']
         st.write("Extracted Text:", extracted_text)
-    
-
-        # Extracting and displaying text from messages
-        if 'messages' in response:
-            for message in response['messages']:
-                # Check if 'content' is present and is a list
-                if 'content' in message and isinstance(message['content'], list):
-                    # Extract text from each TextBlock if present
-                    texts = [block['text'] for block in message['content'] if 'text' in block]
-                    # Display each piece of text
-                    for text in texts:
-                        st.write(text)
-                else:
-                    st.write("No text content available in this message.")
-        else:
-            st.error("The response from the API did not contain the expected 'messages' data.")
 
     except Exception as e:
         st.error(f"An error occurred while fetching the response: {str(e)}")
