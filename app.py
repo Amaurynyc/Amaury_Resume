@@ -10,6 +10,9 @@ st.sidebar.write("""
 
 st.sidebar.write("Trained with claude-3-haiku-20240307")
 
+
+st.sidebar.markdown("Applied to the Solution Architect Manager Role(https://jobs.lever.co/Anthropic/71f3bd8b-2f82-429c-997a-18830b9ca1f1)")
+
 # URL to your LinkedIn profile
 linkedin_profile_url = "https://www.linkedin.com/in/amaurydesrosiers"
 
