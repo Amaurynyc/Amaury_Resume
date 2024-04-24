@@ -56,19 +56,18 @@ if user_input:
 
         # Convert response to a string for regex processing
         response_str = str(response)
+        st.write("API Response:", response_str)  # Log the full response string for debugging
+
+        # Define a regex pattern to more accurately extract the text
+        pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
+
         # Use regex to find all matches of the pattern
-        pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)"'
         matches = re.findall(pattern, response_str)
 
         # Check if matches were found
         if matches:
             extracted_text = " ".join(matches)  # Join all extracted texts
-            # Replace newlines and dashes with HTML list format
-            extracted_text = extracted_text.replace("\n\n-", "</li><li>")
-            if "<li>" in extracted_text:
-                extracted_text = f"<ul><li>{extracted_text[5:]}</li></ul>"
-
-            # Create and display the blue container with the formatted text
+            # Create and display the blue container with the extracted text
             st.markdown(
                 f"""
                 <style>
