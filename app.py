@@ -26,17 +26,14 @@ if user_input:
             }]
         )
 
-        # Convert the response to a string and then evaluate it to a Python object
-        response_str = str(response)
-        response_list = ast.literal_eval(response_str)
-
-        # Assuming response_list is now a properly formatted list of dictionaries
-        if response_list and isinstance(response_list, list):
-            texts = [block['text'] for block in response_list if 'text' in block]
-            extracted_text = " ".join(texts)
-            st.write("Extracted Text:", extracted_text)
-        else:
-            st.error("No 'content' field found in the response, or response not in expected format.")
-
-    except Exception as e:
-        st.error(f"An error occurred while processing the response: {str(e)}")
+    if 'content' in response and isinstance(response['content'], list):
+        # Extracting the text from each TextBlock in the content list
+        formatted_output = "\n".join(text_block['text'] for text_block in response['content'] if 'text' in text_block)
+        # Writing the formatted output to a text file
+        with open('output.txt', 'w') as file:
+            file.write(formatted_output)
+        print("Output has been successfully saved to 'output.txt'.")
+    else:
+        print("Response content is not in the expected list format:", response)
+except Exception as e:
+    print("An error occurred:", str(e))
