@@ -28,7 +28,7 @@ st.sidebar.markdown(linkedin_html, unsafe_allow_html=True)
 
 # Title and Subtitle
 st.title("Meet Amaury Desrosiers!")
-st.subheader("Exploring My Fit for Solution Architecture Manager at Anthropic")
+st.markdown("*Exploring Amaury's fit for Solution Architecture Manager at Anthropic*")
 
 # Initialize the client with the API key from Streamlit's secrets
 client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
@@ -63,8 +63,8 @@ if user_input:
         )
 
         # Print the full API response
-        st.write("Full API Response:")
-        st.write(response)
+        #st.write("Full API Response:")
+        #st.write(response)
 
         # Convert response to a string for regex processing
         response_str = str(response)
