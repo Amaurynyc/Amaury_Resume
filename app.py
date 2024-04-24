@@ -26,14 +26,15 @@ if user_input:
             }]
         )
 
-        # Log the response for debugging
-        st.write("API Response:", response)
+        # Convert response to a string for regex processing
+        response_str = str(response)
+        st.write("API Response:", response_str)  # Log the full response string for debugging
 
         # Define a regex pattern to extract the text
         pattern = r'TextBlock\(text="([^"]+)"'
 
         # Use regex to find all matches of the pattern
-        matches = re.findall(pattern, str(response))  # Convert response to string if not already
+        matches = re.findall(pattern, response_str)
 
         # Check if matches were found
         if matches:
