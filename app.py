@@ -52,18 +52,18 @@ st.markdown(questions_html, unsafe_allow_html=True)
 user_input = st.text_input("What do you want to know abut Amaury?")
 
 if user_input:
-try:
-# Sending the user message to the model
-response = client.messages.create(
-model="claude-3-haiku-20240307",
-max_tokens=1000,
-temperature=0.1,
-system=st.secrets["secret_message"],
-messages=[{
-"content": user_input,
-"role": "user"
-}]
-)
+    try:
+        # Sending the user message to the model
+        response = client.messages.create(
+        model="claude-3-haiku-20240307",
+        max_tokens=1000,
+        temperature=0.1,
+        system=st.secrets["secret_message"],
+        messages=[{
+                "content": user_input,
+                "role": "user"
+                }]
+        )
 
 ```
     # Convert response to a string for regex processing
