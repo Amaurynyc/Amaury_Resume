@@ -1,6 +1,8 @@
 import streamlit as st
 import anthropic
 import re
+import os
+
 
 # Streamlit UI setup
 st.sidebar.write("Version 1.0")
