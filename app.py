@@ -46,7 +46,7 @@ st.markdown(questions_html, unsafe_allow_html=True)
 st.divider()
 
 # Chat interface
-user_input = st.text_input("What do you want to know about Amaury?", value="What specific experiences would set him for success in this role?")
+user_input = st.text_input(" ℹ️ What do you want to know about Amaury?", value="What specific experiences would set him for success in this role?")
 
 
 
