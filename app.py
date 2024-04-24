@@ -28,7 +28,7 @@ if user_input:
 
         # Convert response to a string for regex processing
         response_str = str(response)
-        st.write("API Response:", response_str)  # Log the full response string for debugging
+        #st.write("API Response:", response_str)  # Log the full response string for debugging
 
         # Define a regex pattern to more accurately extract the text
         pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
