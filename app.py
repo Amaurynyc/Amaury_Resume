@@ -54,35 +54,24 @@ user_input = st.text_input("What do you want to know about Amaury?")
 
 if user_input:
     try:
-        # Sending the user message to the model
+        # Assume you have a function 'send_query_to_model' to send queries to your model
         response = client.messages.create(
             model="claude-3-haiku-20240307",
             max_tokens=1000,
             temperature=0.1,
             system=st.secrets["secret_message"],
-            messages=[{
-                "content": user_input,
-                "role": "user"
-            }]
+            messages=[{"content": user_input, "role": "user"}]
         )
-
+        
         # Convert response to a string for regex processing
         response_str = str(response)
 
-        # Define a regex pattern to more accurately extract the text
-        pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
-
-        # Use regex to find all matches of the pattern
+        # Extracted text formatting
         matches = re.findall(pattern, response_str)
-
-
-        # Debugging line to check the environment variable
-        #st.error("Debug - System Message:", system_message)
-
-        # Check if matches were found
         if matches:
             extracted_text = " ".join(matches)  # Join all extracted texts
-            # Create and display the blue container with the extracted text
+            formatted_text = format_text_for_markdown(extracted_text)  # Format text for Markdown display
+            # Display formatted text in a custom styled container
             st.markdown(
                 f"""
                 <style>
@@ -93,14 +82,15 @@ if user_input:
                     margin: 10px 0;
                 }}
                 </style>
-                <div class="blue-container">
-                    {extracted_text}
-                </div>
+                <div class="blue-container">{formatted_text}</div>
                 """,
                 unsafe_allow_html=True
             )
         else:
             st.error("No text was found in the API response.")
+            
+    except Exception as e:
+        st.error(f"An error occurred while fetching the response: {str(e)}")
 
     except Exception as e:
         st.error(f"An error occurred while fetching the response: {str(e)}")
