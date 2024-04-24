@@ -9,13 +9,10 @@ st.sidebar.write("Developer: Amaury")
 # Initialize the client with the API key from Streamlit's secrets
 client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
 
-# Create a container for chat messages
-chat = st.container()
-
+# Chat interface
 user_input = st.text_input("How can I help with Wardley Mapping?")
 
 if user_input:
-    chat.write("You: " + user_input)  # Display user's message in chat format
     try:
         # Sending the user message to the model
         response = client.messages.create(
@@ -42,10 +39,9 @@ if user_input:
         # Check if matches were found
         if matches:
             extracted_text = " ".join(matches)  # Join all extracted texts
-            # Display extracted text in a chat format
-            chat.write("Bot: " + extracted_text)
+            st.write("Extracted Text:", extracted_text)
         else:
-            chat.error("No text was found in the API response.")
+            st.error("No text was found in the API response.")
 
     except Exception as e:
-        chat.error(f"An error occurred while fetching the response: {str(e)}")
+        st.error(f"An error occurred while fetching the response: {str(e)}")
