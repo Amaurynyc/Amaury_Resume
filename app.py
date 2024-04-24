@@ -7,9 +7,6 @@ import os
 # Streamlit UI setup
 st.sidebar.write("""
 # **Amaury Desrosiers**
-""")
-
-st.sidebar.write("""
 ## **amaury@outlook.com**
 """)
 
