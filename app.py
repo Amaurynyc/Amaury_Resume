@@ -72,38 +72,41 @@ if user_input:
         matches = re.findall(pattern, response_str)
 
         # Check if matches were found
-        if matches:
-            extracted_text = " ".join(matches)  # Join all extracted texts
-            # Process the text to split into structured HTML
-            paragraphs = re.split(r'\n\n+', extracted_text)  # Split on double newlines for paragraphs
-            formatted_html = ''
-            for paragraph in paragraphs:
-                bullet_points = re.split(r'\n+', paragraph)  # Split on single newline for bullet points
-                if len(bullet_points) > 1:
-                    # Format as list items if there are bullet points
-                    formatted_html += '<ul>' + ''.join(f'<li>{point}</li>' for point in bullet_points if point.strip()) + '</ul>'
-                else:
-                    # Otherwise, it's a single paragraph
-                    formatted_html += f'<p>{paragraph}</p>'
 
-            # Create and display the blue container with the formatted text
-            st.markdown(
-                f"""
-                <style>
-                .blue-container {{
-                    background-color: #f0f8ff;
-                    border-radius: 10px;
-                    padding: 10px;
-                    margin: 10px 0;
-                }}
-                </style>
-                <div class="blue-container">
-                    {formatted_html}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-        else:
-            st.error("No text was found in the API response.")
-    except Exception as e:
-        st.error(f"An error occurred while fetching the response: {str(e)}")
+
+
+    # Check if matches were found
+    if matches:
+      extracted_text = " ".join(matches) # Join all extracted texts
+      # Process the text to split into structured HTML
+      paragraphs = re.split(r'\n\n', extracted_text) # Split on double newlines for paragraphs
+      formatted_html = ''
+      for paragraph in paragraphs:
+        if paragraph.strip():
+          # Replace single newlines with <br> tags
+          paragraph = re.sub(r'\n', '<br>', paragraph)
+          formatted_html += f'<p>{paragraph}</p>'
+
+      # Create and display the blue container with the formatted text
+      st.markdown(
+        f"""
+        <style>
+        .blue-container {{
+          background-color: #f0f8ff;
+          border-radius: 10px;
+          padding: 10px;
+          margin: 10px 0;
+        }}
+        </style>
+        <div class="blue-container">
+          {formatted_html}
+        </div>
+        """,
+        unsafe_allow_html=True
+      )
+    else:
+      st.error("No text was found in the API response.")
+  except Exception as e:
+    st.error(f"An error occurred while fetching the response: {str(e)}")
+
+
