@@ -59,41 +59,54 @@ if user_input:
             }]
         )
 
-        # Convert response to a string for regex processing
-        response_str = str(response)
+            # Convert response to a string for regex processing
+            response_str = str(response)
 
-        # Define a regex pattern to more accurately extract the text
-        pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
+            # Define a regex pattern to more accurately extract the text
+            pattern = r'TextBlock\\(text="((?:\[^"\\\\\]|\\\\.)\*)'
 
-        # Use regex to find all matches of the pattern
-        matches = re.findall(pattern, response_str)
+            # Use regex to find all matches of the pattern
+            matches = re.findall(pattern, response_str)
 
+            # Check if matches were found
+            if matches:
+                extracted_text = " ".join(matches) # Join all extracted texts
 
-        # Debugging line to check the environment variable
-        #st.error("Debug - System Message:", system_message)
+                # Split the referral into paragraphs based on "\n\n"
+                paragraphs = extracted_text.split("\\n\\n")
 
-        # Check if matches were found
-        if matches:
-            extracted_text = " ".join(matches)  # Join all extracted texts
-            # Create and display the blue container with the extracted text
-            st.markdown(
-                f"""
-                <style>
-                .blue-container {{
-                    background-color: #f0f8ff;
-                    border-radius: 10px;
-                    padding: 10px;
-                    margin: 10px 0;
-                }}
-                </style>
-                <div class="blue-container">
-                    {extracted_text}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-        else:
-            st.error("No text was found in the API response.")
+                # Initialize an empty string to store the formatted referral
+                formatted_referral = ""
 
-    except Exception as e:
-        st.error(f"An error occurred while fetching the response: {str(e)}")
+                # Iterate over each paragraph
+                for paragraph in paragraphs:
+                    # Check if the paragraph starts with "- " indicating a bullet point
+                    if paragraph.startswith("- "):
+                        # Add the bullet point to the formatted referral
+                        formatted_referral += "- " + paragraph[2:] + "\n\n"
+                    else:
+                        # Add the paragraph to the formatted referral
+                        formatted_referral += paragraph + "\n\n"
+
+                # Create and display the blue container with the formatted referral
+                st.markdown(
+                    f"""
+                    <style>
+                    .blue-container {{
+                        background-color: #f0f8ff;
+                        border-radius: 10px;
+                        padding: 10px;
+                        margin: 10px 0;
+                    }}
+                    </style>
+                    <div class="blue-container">
+                    {formatted_referral}
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+            else:
+                st.error("No text was found in the API response.")
+
+        except Exception as e:
+            st.error(f"An error occurred while fetching the response: {str(e)}")
