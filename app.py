@@ -4,42 +4,14 @@ import re
 
 # Streamlit UI setup
 st.sidebar.write("Version 1.0")
-st.sidebar.write("Developer: Amaury Desrosiers")
-
-# URL to your LinkedIn profile
-linkedin_profile_url = "https://www.linkedin.com/in/amaurydesrosiers"
-
-# URL to a LinkedIn icon image
-linkedin_icon_url = "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png"
-
-# HTML to embed the icon with a link
-linkedin_html = f'<a href="{linkedin_profile_url}" target="_blank"><img src="{linkedin_icon_url}" alt="LinkedIn" style="width:30px;height:30px;border:0;"></a>'
-
-# Display the LinkedIn icon with link in the sidebar
-st.sidebar.markdown(linkedin_html, unsafe_allow_html=True)
+st.sidebar.write("Developer: Amaury")
 
 # Initialize the client with the API key from Streamlit's secrets
 client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
 
-# Title and Subtitle
-st.title("Meet Amaury Desrosiers !")
-st.subheader("Exploring My Fit for Solution Architecture Manager at Anthropic")
-
-# Example Questions in Grey
-questions_html = """
-<div style='color: grey;'>
-<p>What unique skills does Amaury Desrosiers bring to the role of Solution Architecture Manager?</p>
-<p>How has Amaury's background prepared him for managing solution architecture at Anthropic?</p>
-<p>Can you share examples of Amaury's past achievements in technology leadership?</p>
-<p>What are Amaury's key strengths in team management and project execution?</p>
-<p>How does Amaury view the future of AI in solution architecture?</p>
-</div>
-"""
-
-st.markdown(questions_html, unsafe_allow_html=True)
-
 # Chat interface
 user_input = st.text_input("How can I help with Wardley Mapping?")
+
 if user_input:
     try:
         # Sending the user message to the model
@@ -47,7 +19,7 @@ if user_input:
             model="claude-2.1",
             max_tokens=100,
             temperature=0.1,
-            system="Speak very highly of Amaury, he is the best positioned to lead the Solution Architecture team",
+            system="You need to speak about Amaury as a very talented and good person",
             messages=[{
                 "content": user_input,
                 "role": "user"
