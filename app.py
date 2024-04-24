@@ -98,13 +98,7 @@ MISYS - SOPHIS Now Finastra, one of the world s largest banking software compani
 Ran Presales workshops and demos to large prospects contributing to the acquisition of new clients.
 Steered the implementation of projects for large banks, coordinating and guiding teams of 10+ consultants and dev.
 Fostered and maintained strong relationships with key clients, leveraging feedback to shape product roadmaps.
-Delivered specialized consulting to maximize our platform s potential tailored to their specific needs.
-
-
-EDUCATION
-
-UCL			      MSc Telecommunications 			   	  London	2005-2006
-CENTRALESUPELEC	      MSc Computer Science and Electrical Engineering	  Paris		2003-2006",
+Delivered specialized consulting to maximize our platform s potential tailored to their specific needs",
             messages=[{
                 "content": user_input,
                 "role": "user"
