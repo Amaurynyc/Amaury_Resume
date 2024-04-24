@@ -8,10 +8,14 @@ import os
 st.sidebar.write("""
 # **Amaury Desrosiers**
 """)
-st.sidebar.write("Developer: Amaury")
 
+st.sidebar.write("""
+## **amaury@outlook.com**
+""")
 
-
+st.sidebar.write("""
+Trained with claude-3-haiku-20240307
+""")
 
 # URL to your LinkedIn profile
 linkedin_profile_url = "https://www.linkedin.com/in/amaurydesrosiers"
