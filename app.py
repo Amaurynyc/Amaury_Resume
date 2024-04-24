@@ -49,7 +49,7 @@ if user_input:
             model="claude-3-haiku-20240307",
             max_tokens=1000,
             temperature=0.1,
-            system="You need to speak about Amaury as a very talented and good person",
+            system=SYSTEM_INPUT,
             messages=[{
                 "content": user_input,
                 "role": "user"
