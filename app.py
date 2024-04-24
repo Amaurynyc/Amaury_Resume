@@ -27,6 +27,10 @@ if user_input:
         # Log the response to inspect the structure, temporarily for debugging
         st.write("API Response:", response)
 
+        st.write("Text Extract:", response["content"][0]["text"])
+
+    
+
         # Extracting and displaying text from messages
         if 'messages' in response:
             for message in response['messages']:
