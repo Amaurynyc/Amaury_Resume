@@ -28,7 +28,7 @@ if user_input:
 
         # Convert response to a string for regex processing
         response_str = str(response)
-        #st.write("API Response:", response_str)  # Log the full response string for debugging
+        st.write("API Response:", response_str)  # Log the full response string for debugging
 
         # Define a regex pattern to more accurately extract the text
         pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
@@ -39,9 +39,15 @@ if user_input:
         # Check if matches were found
         if matches:
             extracted_text = " ".join(matches)  # Join all extracted texts
-            st.code(extracted_text)
+            # Display each extracted text in a blue chat message box
+            for text in matches:
+                st.chat_message(text, is_user=False)  # is_user=False for bot responses, True for user messages
         else:
             st.error("No text was found in the API response.")
 
     except Exception as e:
         st.error(f"An error occurred while fetching the response: {str(e)}")
+
+# Optionally, display the user's input in the chat as well for full context
+if user_input:
+    st.chat_message(user_input, is_user=True)  # Display user input in the chat for context
