@@ -39,9 +39,9 @@ questions_html = """
 <p style='margin-bottom: 5px;'>How does Amaury view the future of AI in solution architecture?</p>
 </div>
 """
-st.divider()
-st.markdown(questions_html, unsafe_allow_html=True)
 
+st.markdown(questions_html, unsafe_allow_html=True)
+st.divider()
 # Chat interface
 user_input = st.text_input("What do you want to know abut Amaury?")
 
