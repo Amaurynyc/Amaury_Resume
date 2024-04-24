@@ -69,7 +69,7 @@ if user_input:
 
 
         # Debugging line to check the environment variable
-        st.error("Debug - System Message:", system_message)
+        #st.error("Debug - System Message:", system_message)
 
         # Check if matches were found
         if matches:
