@@ -32,11 +32,11 @@ client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
 
 questions_html = """
 <div style='color: grey;'>
-<p>What unique skills does Amaury Desrosiers bring to the role of Solution Architecture Manager?</p>
-<p>How has Amaury's background prepared him for managing solution architecture at Anthropic?</p>
-<p>Can you share examples of Amaury's past achievements in technology leadership?</p>
-<p>What are Amaury's key strengths in team management and project execution?</p>
-<p>How does Amaury view the future of AI in solution architecture?</p>
+<p style='margin-bottom: 5px;'>What unique skills does Amaury Desrosiers bring to the role of Solution Architecture Manager?</p>
+<p style='margin-bottom: 5px;'>How has Amaury's background prepared him for managing solution architecture at Anthropic?</p>
+<p style='margin-bottom: 5px;'>Can you share examples of Amaury's past achievements in technology leadership?</p>
+<p style='margin-bottom: 5px;'>What are Amaury's key strengths in team management and project execution?</p>
+<p style='margin-bottom: 5px;'>How does Amaury view the future of AI in solution architecture?</p>
 </div>
 """
 
