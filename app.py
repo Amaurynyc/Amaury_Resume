@@ -25,11 +25,12 @@ if user_input:
             }]
         )
 
-        # Attempt to access the content if it is in the expected format
-        if hasattr(response, 'content'):
-            texts = [block.text for block in response.content if hasattr(block, 'text')]
+        # Assuming response is a JSON-like object and checking for 'content' key
+        if 'content' in response:
+            # Iterate over each item in the content list
+            texts = [block['text'] for block in response['content'] if 'text' in block]
             extracted_text = " ".join(texts)
-            st.code("Extracted Text:", extracted_text)
+            st.write("Extracted Text:", extracted_text)
         else:
             st.error("No 'content' field found in the response, or response not in expected format.")
 
