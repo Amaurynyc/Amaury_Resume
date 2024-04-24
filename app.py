@@ -10,7 +10,7 @@ st.sidebar.write("Developer: Amaury")
 client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
 
 # Chat interface
-user_input = st.text_input("How can I help with Wardley Mapping?")
+user_input = st.text_input("How can I help with Wardley Mapping?. In your API response, I just want the text response, i want to be able to extract it easily.")
 
 if user_input:
     try:
