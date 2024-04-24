@@ -24,8 +24,6 @@ st.sidebar.markdown(linkedin_html, unsafe_allow_html=True)
 st.title("Meet Amaury Desrosiers !")
 st.subheader("Exploring My Fit for Solution Architecture Manager at Anthropic")
 
-system_message = os.getenv('SECRET_MESSAGE', 'Default fallback message')
-st.write(system_message)
 
 # Initialize the client with the API key from Streamlit's secrets
 client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
@@ -54,7 +52,7 @@ if user_input:
             model="claude-3-haiku-20240307",
             max_tokens=1000,
             temperature=0.1,
-            system="Amaury is amazing",
+            system=st.secrets["secret_message"],
             messages=[{
                 "content": user_input,
                 "role": "user"
