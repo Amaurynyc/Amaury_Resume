@@ -67,24 +67,7 @@ if user_input:
         )
         response = completion.choices[0].text       
 
-        # Print the full API response
         st.write(completion.choices[0].text)
-
-
-        st.markdown(
-            f"""
-            <style>
-            .blue-container {{
-                background-color: #8eb2fa;
-                border-radius: 10px;
-                padding: 20px;
-                margin-bottom: 20px;
-            }}
-            </style>
-            {completion.choices[0].text}
-            """,
-            unsafe_allow_html=True
-        )
 
 
     except Exception as e:
