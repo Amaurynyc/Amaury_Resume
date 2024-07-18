@@ -11,7 +11,7 @@ st.sidebar.write("""
 st.sidebar.write("Trained with claude-3-haiku-20240307")
 
 st.sidebar.markdown("""
-[Solution Architect Manager Opening](https://jobs.lever.co/Anthropic/71f3bd8b-2f82-429c-997a-18830b9ca1f1)
+[Solution Architect](https://jobs.ashbyhq.com/writer/f185ea96-e519-47fa-aeeb-97682e8968e5)
 """)
 
 # URL to your LinkedIn profile
@@ -28,7 +28,7 @@ st.sidebar.markdown(linkedin_html, unsafe_allow_html=True)
 
 # Title and Subtitle
 st.title("Meet Amaury Desrosiers!")
-st.markdown("**Exploring Amaury's fit for Solution Architect Manager at Anthropic**")
+st.markdown("**Exploring Amaury's fit for Solution Architect at Writer**")
 
 # Initialize the client with the API key from Streamlit's secrets
 client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
@@ -36,10 +36,9 @@ client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
 # Example Questions in Grey
 questions_html = """
 <div style='color: grey;'>
-<p>What unique skills does Amaury Desrosiers bring to the role of Solution Architect Manager?</p>
-<p>How has Amaury's background prepared him for managing solution architects at Anthropic?</p>
+<p>What unique skills does Amaury Desrosiers bring to the role of Solution Architect?</p>
+<p>How has Amaury's background prepared him for to be a solution architects at Writer?</p>
 <p>Can you share examples of Amaury's past achievements in technology leadership?</p>
-<p>What are Amaury's key strengths in team management and project execution?</p>
 </div>
 """
 st.markdown(questions_html, unsafe_allow_html=True)
@@ -47,8 +46,6 @@ st.divider()
 
 # Chat interface
 user_input = st.text_input(" ℹ️ What do you want to know about Amaury?", value="What specific experiences would set him for success in this role?")
-
-
 
 if user_input:
     try:
