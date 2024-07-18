@@ -44,8 +44,13 @@ questions_html = """
 st.markdown(questions_html, unsafe_allow_html=True)
 st.divider()
 
+
+
 # Chat interface
 user_input = st.text_input(" ℹ️ What do you want to know about Amaury?", value="What specific experiences would set him for success in this role?")
+
+context=st.secrets["secret_message"]
+
 
 if user_input:
     try:
@@ -57,7 +62,7 @@ if user_input:
         )
         completion = client.completions.create(
         model="palmyra-x-002-instruct",
-        prompt=user_input
+        prompt=f"{context}.{user_input}",
         )
         response = completion.choices[0].text       
 
