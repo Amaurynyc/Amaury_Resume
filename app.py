@@ -62,6 +62,7 @@ if user_input:
         )
         completion = client.completions.create(
         model="palmyra-x-002-instruct",
+        best_of=1
         prompt=f"{context}.{user_input}. The response to the question should be only be a couple of paragraphs",
         )
         response = completion.choices[0].text       
