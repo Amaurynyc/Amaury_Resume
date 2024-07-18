@@ -62,47 +62,29 @@ if user_input:
         )
         completion = client.completions.create(
         model="palmyra-x-002-instruct",
-        prompt=f"{context}.{user_input}",
+        prompt=f"{context}.{user_input}. The response to the question should be only be a couple of paragraphs",
         )
         response = completion.choices[0].text       
 
         # Print the full API response
         st.write(completion.choices[0].text)
 
-        # Convert response to a string for regex processing
-        response_str = str(response)
 
-        # Define a regex pattern to more accurately extract the text
-        pattern = r'TextBlock\(text="((?:[^"\\]|\\.)*)'
+        st.markdown(
+            f"""
+            <style>
+            .blue-container {{
+                background-color: #8eb2fa;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 20px;
+            }}
+            </style>
+            {completion.choices[0].text}
+            """,
+            unsafe_allow_html=True
+        )
 
-        # Use regex to find all matches of the pattern
-        matches = re.findall(pattern, response_str)
-
-        # Check if matches were found
-        if matches:
-            extracted_text = " ".join(matches)  # Join all extracted texts
-            # Replace newline characters with HTML tags for formatting
-            extracted_text = extracted_text.replace("\\n\\n", "</p><p>").replace("\\n", "<br>")
-            # Wrap the content in paragraph tags if not already formatted
-            formatted_html = f"<div class='blue-container'><p>{extracted_text}</p></div>"
-
-            # Create and display the blue container with the formatted text
-            st.markdown(
-                f"""
-                <style>
-                .blue-container {{
-                    background-color: #8eb2fa;
-                    border-radius: 10px;
-                    padding: 20px;
-                    margin-bottom: 20px;
-                }}
-                </style>
-                {formatted_html}
-                """,
-                unsafe_allow_html=True
-            )
-        else:
-            st.error("No text was found in the API response.")
 
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
