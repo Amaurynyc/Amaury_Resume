@@ -67,11 +67,7 @@ if user_input:
         response = completion.choices[0].text       
 
         # Print the full API response
-        st.write(user_input)
-        st.write("Full API Response:")
-        
-        st.write(completion)
-        st.write(completion.choices[0])
+        st.write(completion.choices[0].text)
 
         # Convert response to a string for regex processing
         response_str = str(response)
