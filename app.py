@@ -37,8 +37,8 @@ st.markdown("**Exploring Amaury's fit for Solution Architect at Writer**")
 questions_html = """
 <div style='color: grey;'>
 <p>What unique skills does Amaury Desrosiers bring to the role of Solution Architect?</p>
-<p>How has Amaury's background prepared him for to be a solution architects at Writer?</p>
-<p>Can you share examples of Amaury's past achievements in technology leadership?</p>
+<p>How has Amaury's background prepared him for to be a Solution Architect at Writer?</p>
+<p>Can you share examples of Amaury's past achievements in Solution Selling?</p>
 </div>
 """
 st.markdown(questions_html, unsafe_allow_html=True)
