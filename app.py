@@ -57,7 +57,7 @@ if user_input:
         )
         completion = client.completions.create(
         model="palmyra-x-002-instruct",
-        prompt=f"Here is the context{st.secrets["secret_message"]} and here is the question {user_input}"
+        prompt=f"Here is the context{st.secrets[\"secret_message\"]} and here is the question {user_input}"
         )
 response = print(completion.choices[0].text)        
 
