@@ -67,7 +67,7 @@ if user_input:
         response = completion.choices[0].text       
 
         # Print the full API response
-        print(user_input)
+        st.write(user_input)
         st.write("Full API Response:")
         
         st.write(completion)
