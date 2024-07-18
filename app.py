@@ -57,7 +57,7 @@ if user_input:
         )
         completion = client.completions.create(
         model="palmyra-x-002-instruct",
-        prompt="write a quick explanation of what is marketing"
+        prompt=user_input
         )
         response = completion.choices[0].text       
 
