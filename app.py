@@ -59,7 +59,7 @@ if user_input:
         model="palmyra-x-002-instruct",
         prompt="write a quick explanation of what is marketing"
         )
-        response = print(completion.choices[0].text)        
+        response = completion.choices[0].text       
 
         # Print the full API response
         st.write("Full API Response:")
