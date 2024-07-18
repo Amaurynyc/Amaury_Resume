@@ -1,5 +1,6 @@
 import streamlit as st
-import anthropic
+import os
+from writerai import Writer
 import re
 
 # Streamlit UI setup
@@ -8,7 +9,7 @@ st.sidebar.write("""
 ## **amaury@outlook.com**
 """)
 
-st.sidebar.write("Trained with claude-3-haiku-20240307")
+st.sidebar.write("WRITER palmyra-x-002-instruct")
 
 st.sidebar.markdown("""
 [Solution Architect](https://jobs.ashbyhq.com/writer/f185ea96-e519-47fa-aeeb-97682e8968e5)
@@ -30,8 +31,7 @@ st.sidebar.markdown(linkedin_html, unsafe_allow_html=True)
 st.title("Meet Amaury Desrosiers!")
 st.markdown("**Exploring Amaury's fit for Solution Architect at Writer**")
 
-# Initialize the client with the API key from Streamlit's secrets
-client = anthropic.Anthropic(api_key=st.secrets["my_anthropic_api_key"])
+
 
 # Example Questions in Grey
 questions_html = """
@@ -50,20 +50,20 @@ user_input = st.text_input(" ℹ️ What do you want to know about Amaury?", val
 if user_input:
     try:
         # Sending the user message to the model
-        response = client.messages.create(
-            model="claude-3-haiku-20240307",
-            max_tokens=1000,
-            temperature=0.2,
-            system=st.secrets["secret_message"],
-            messages=[{
-                "content": user_input,
-                "role": "user"
-            }]
+        
+        client = Writer(
+        # This is the default and can be omitted
+        api_key="euHnjBi7d7qSg9pFGxKbj5FoBrDLlcwr",
         )
+        completion = client.completions.create(
+        model="palmyra-x-002-instruct",
+        prompt=f"Here is the context{st.secrets["secret_message"]} and here is the question {user_input}"
+        )
+response = print(completion.choices[0].text)        
 
         # Print the full API response
-        #st.write("Full API Response:")
-        #st.write(response)
+        st.write("Full API Response:")
+        st.write(response)
 
         # Convert response to a string for regex processing
         response_str = str(response)
